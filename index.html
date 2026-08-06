@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tanay Parekh — Software Developer</title>
+<meta name="description" content="Tanay Parekh — Software Developer. 3+ years building enterprise .NET applications, backend systems, and databases.">
+<style>
+  :root{
+    --bg:#0a0e17;
+    --bg-panel:#10151f;
+    --bg-inset:#060911;
+    --ink:#e8ecf4;
+    --muted:#7c8699;
+    --muted-dim:#747d90;
+    --line:#1e2635;
+    --line-soft:#161d2a;
+    --teal:#4ce8c4;
+    --teal-dim:#2a7d68;
+    --coral:#ff6b7a;
+    --amber:#ffc65c;
+    --violet:#9d8cff;
+    --sky:#5cc8ff;
+    --mono: ui-monospace, "Cascadia Code", "SF Mono", "JetBrains Mono", Consolas, "Liberation Mono", monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, sans-serif;
+    --maxw: 860px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size:48px 48px;
+    opacity:.35;
+    pointer-events:none;
+    z-index:0;
+  }
+  a{color:var(--teal);}
+  ::selection{background:var(--teal);color:#04120e;}
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+    border-radius:3px;
+  }
+
+  .wrap{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  /* ---------- nav / tab bar ---------- */
+  .tabbar{
+    position:sticky;top:0;z-index:20;
+    background:rgba(10,14,23,.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .tabbar-inner{
+    max-width:var(--maxw);margin:0 auto;padding:0 24px;
+    display:flex;align-items:center;gap:2px;overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .tabbar-inner::-webkit-scrollbar{display:none;}
+  .tabbar-fade{
+    position:absolute;right:0;top:0;bottom:0;width:32px;
+    background:linear-gradient(to right, transparent, var(--bg) 75%);
+    pointer-events:none;opacity:0;transition:opacity .2s ease;
+  }
+  .tabbar-fade.show{opacity:1;}
+  .tab{
+    font-family:var(--mono);
+    font-size:.8rem;
+    color:var(--muted);
+    background:transparent;
+    border:none;
+    border-top:2px solid transparent;
+    padding:14px 16px 12px;
+    cursor:pointer;
+    white-space:nowrap;
+    display:flex;align-items:center;gap:7px;
+    transition:color .15s ease;
+    text-decoration:none;
+  }
+  .tab:hover{color:var(--ink);}
+  .tab.active{color:var(--ink);border-top-color:var(--dot,var(--teal));}
+  .tab .dot{width:6px;height:6px;border-radius:50%;background:var(--dot,var(--teal));flex:none;}
+  .tab[data-file="about"]{--dot:#4ce8c4;}
+  .tab[data-file="experience"]{--dot:#ff6b7a;}
+  .tab[data-file="skills"]{--dot:#ffc65c;}
+  .tab[data-file="projects"]{--dot:#5cc8ff;}
+  .tab[data-file="education"]{--dot:#9d8cff;}
+  .tab[data-file="contact"]{--dot:#4ce8c4;}
+
+  /* ---------- hero / terminal boot ---------- */
+  .hero{padding:88px 0 56px;}
+  .term{
+    background:var(--bg-inset);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,.6);
+  }
+  .term-bar{
+    display:flex;align-items:center;gap:8px;
+    padding:10px 14px;
+    background:var(--bg-panel);
+    border-bottom:1px solid var(--line);
+  }
+  .term-dot{width:10px;height:10px;border-radius:50%;flex:none;}
+  .term-dot:nth-child(1){background:#ff6b7a;}
+  .term-dot:nth-child(2){background:#ffc65c;}
+  .term-dot:nth-child(3){background:#4ce8c4;}
+  .term-title{
+    margin-left:8px;font-family:var(--mono);font-size:.72rem;color:var(--muted-dim);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;
+  }
+  .term-body{padding:26px 22px 30px;font-family:var(--mono);font-size:.92rem;}
+  .term-line{color:var(--muted);}
+  .term-line .prompt{color:var(--teal);}
+  .term-out{margin:14px 0 0;}
+  .term-name{
+    font-size:clamp(2rem,6vw,3.1rem);
+    line-height:1.1;
+    margin:0;
+    color:var(--ink);
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+  .term-role{color:var(--coral);font-size:1.05rem;margin:8px 0 0;}
+  .term-meta{
+    display:flex;flex-wrap:wrap;gap:8px 18px;
+    margin-top:18px;color:var(--muted);font-size:.82rem;
+  }
+  .term-meta span{white-space:nowrap;}
+  .term-meta b{color:var(--ink);font-weight:600;}
+  .cursor{display:inline-block;width:8px;height:1.05em;background:var(--teal);vertical-align:text-bottom;margin-left:2px;animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  .hero-cta{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:.82rem;
+    padding:10px 16px;min-height:44px;border-radius:7px;
+    text-decoration:none;
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--line);
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--teal);color:#04120e;border-color:var(--teal);font-weight:600;}
+  .btn-ghost{color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--muted);}
+
+  /* ---------- sections ---------- */
+  section{padding:64px 0;border-top:1px solid var(--line-soft);}
+  section:first-of-type{border-top:none;}
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  .file-head{
+    display:flex;align-items:baseline;gap:10px;margin-bottom:26px;
+    font-family:var(--mono);
+  }
+  .file-head .ext-dot{width:7px;height:7px;border-radius:50%;background:var(--dot,var(--teal));}
+  .file-head h2{
+    font-size:1.05rem;margin:0;color:var(--ink);font-weight:600;
+    display:flex;align-items:center;gap:9px;
+  }
+  .file-head .sub{color:var(--muted-dim);font-size:.78rem;}
+
+  /* about.md */
+  #about .file-head{--dot:#4ce8c4;}
+  .prose{font-size:1.02rem;color:#c7cedd;max-width:64ch;}
+  .prose p + p{margin-top:14px;}
+  .prose .kw{color:var(--teal);font-family:var(--mono);font-size:.95em;}
+
+  /* experience.log */
+  #experience .file-head{--dot:#ff6b7a;}
+  .job{
+    position:relative;
+    padding:22px 0 22px 22px;
+    border-left:2px solid var(--line);
+  }
+  .job::before{
+    content:"";position:absolute;left:-7px;top:26px;
+    width:12px;height:12px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--coral);
+  }
+  .job:first-child{padding-top:0;}
+  .job:first-child::before{top:4px;}
+  .job-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;}
+  .job-role{font-weight:700;font-size:1.06rem;color:var(--ink);}
+  .job-date{font-family:var(--mono);font-size:.76rem;color:var(--coral);background:rgba(255,107,122,.1);border:1px solid rgba(255,107,122,.28);padding:2px 9px;border-radius:999px;}
+  .job-co{color:var(--muted);font-size:.92rem;margin-top:3px;}
+  .job ul{margin:14px 0 0;padding-left:19px;color:#c7cedd;font-size:.94rem;}
+  .job li{margin:6px 0;}
+  .job li::marker{color:var(--muted-dim);}
+  .job--proj::before{border-color:var(--sky);}
+  .job--proj .job-date{color:var(--sky);background:rgba(92,200,255,.1);border-color:rgba(92,200,255,.28);}
+
+  /* skills.json */
+  #skills .file-head{--dot:#ffc65c;}
+  .json-block{
+    background:var(--bg-inset);border:1px solid var(--line);border-radius:10px;
+    padding:22px 24px;font-family:var(--mono);font-size:.86rem;overflow-x:auto;
+  }
+  .json-row{margin:4px 0;white-space:normal;}
+  .json-key{color:var(--amber);}
+  .json-punc{color:var(--muted-dim);}
+  .tag{
+    display:inline-block;background:rgba(76,232,196,.08);color:var(--teal);
+    border:1px solid rgba(76,232,196,.28);border-radius:6px;
+    padding:1px 8px;margin:3px 4px 3px 0;font-size:.82rem;
+  }
+
+  /* projects.log */
+  #projects .file-head{--dot:#5cc8ff;}
+
+  /* education.yml */
+  #education .file-head{--dot:#9d8cff;}
+  .edu{margin-bottom:24px;padding-bottom:24px;border-bottom:1px dashed var(--line);}
+  .edu:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .yml-row{font-family:var(--mono);font-size:.86rem;color:var(--muted);margin:3px 0;}
+  .yml-row b{color:#9d8cff;font-weight:600;}
+  .yml-val{color:#c7cedd;font-family:var(--sans);}
+  .edu-title{font-weight:700;color:var(--ink);font-size:1.02rem;margin-bottom:6px;}
+
+  /* contact.sh */
+  #contact .file-head{--dot:#4ce8c4;}
+  .sh-block{
+    background:var(--bg-inset);border:1px solid var(--line);border-radius:10px;
+    padding:22px 24px;font-family:var(--mono);font-size:.88rem;
+  }
+  .sh-row{display:flex;align-items:center;gap:10px;margin:10px 0;flex-wrap:wrap;}
+  .sh-row .comment{color:var(--muted-dim);}
+  .sh-row a{color:var(--teal);text-decoration:none;border-bottom:1px dashed rgba(76,232,196,.4);}
+  .sh-row a:hover{border-bottom-style:solid;}
+  .note{
+    margin-top:18px;padding:12px 14px;border-radius:8px;
+    background:rgba(255,198,92,.08);border:1px solid rgba(255,198,92,.25);
+    color:#e6d3a3;font-size:.8rem;font-family:var(--mono);
+  }
+
+  footer{
+    text-align:center;color:var(--muted-dim);font-family:var(--mono);
+    font-size:.76rem;padding:36px 0 60px;
+  }
+
+  @media (max-width:640px){
+    .hero{padding:56px 0 40px;}
+    section{padding:48px 0;}
+    .term-body{padding:20px 16px 24px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;transition:none;}
+    .cursor{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="tabbar">
+  <div class="tabbar-inner">
+    <a class="tab active" data-file="about" href="#about"><span class="dot"></span>about.md</a>
+    <a class="tab" data-file="experience" href="#experience"><span class="dot"></span>experience.log</a>
+    <a class="tab" data-file="skills" href="#skills"><span class="dot"></span>skills.json</a>
+    <a class="tab" data-file="projects" href="#projects"><span class="dot"></span>projects.log</a>
+    <a class="tab" data-file="education" href="#education"><span class="dot"></span>education.yml</a>
+    <a class="tab" data-file="contact" href="#contact"><span class="dot"></span>contact.sh</a>
+  </div>
+  <div class="tabbar-fade" id="tabbarFade" aria-hidden="true"></div>
+</nav>
+
+<div class="hero wrap">
+  <div class="term">
+    <div class="term-bar">
+      <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
+      <span class="term-title">tanay@career — zsh</span>
+    </div>
+    <div class="term-body">
+      <div class="term-line"><span class="prompt">➜</span> ~ whoami</div>
+      <div class="term-out">
+        <h1 class="term-name" id="typedName"></h1>
+        <p class="term-role" id="typedRole"></p>
+      </div>
+      <div class="term-meta">
+        <span><b>3+ yrs</b> in production software</span>
+        <span><b>M.Eng.</b> Applied AI — Stevens Institute of Technology</span>
+        <span><b>Based in</b> New Jersey, USA</span>
+      </div>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="mailto:tanayparekh94@gmail.com">email me <span aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="#experience">view experience</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section id="about">
+    <div class="file-head reveal"><span class="ext-dot"></span><h2>about.md</h2><span class="sub">// summary</span></div>
+    <div class="prose reveal">
+      <p>I'm a <span class="kw">software developer</span> with 3+ years of production experience building enterprise applications on the <span class="kw">.NET</span> stack — from backend architecture and database design to the integrations that keep systems talking to each other.</p>
+      <p>My path here wasn't a straight line: I've shipped ASP.NET applications, kept pharmaceutical serialization systems compliant and running, and even wired up hardware-level programming along the way. I hold an <span class="kw">M.Eng. in Applied Artificial Intelligence</span> from Stevens Institute of Technology (2019–2022), and I like problems that sit at the intersection of code, data, and systems design.</p>
+      <p>Currently building software design and architecture at Micrologic Associates, Parsippany NJ. Outside of work I speak English, Hindi, and Gujarati, and I'm slowly picking up Spanish — and I keep a running Raspberry Pi home lab as a side project.</p>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="file-head reveal"><span class="ext-dot"></span><h2>experience.log</h2><span class="sub">// reverse-chronological</span></div>
+
+    <div class="job reveal">
+      <div class="job-head">
+        <span class="job-role">Software Developer</span>
+        <span class="job-date">Jul 2022 — Present</span>
+      </div>
+      <div class="job-co">Micrologic Associates · Parsippany, NJ</div>
+      <ul>
+        <li>Develop high-quality software design and architecture as a .NET application developer — ASP.NET, .NET Core, MVC, C#, JavaScript, jQuery, JSON, LINQ, ADO.NET, Entity Framework, and RESTful/Web APIs.</li>
+        <li>Design relational databases and write T-SQL, stored procedures, views, user-defined functions, and triggers.</li>
+        <li>Clean and migrate data from competitor systems into internal tables and schemas.</li>
+        <li>Work hands-on with hardware programming alongside the application layer.</li>
+        <li>Collaborate with internal teams and vendors to fix and improve products; track work in Jira.</li>
+        <li>Document development phases, monitor systems in production, and automate recurring tasks through tooling and scripting.</li>
+      </ul>
+    </div>
+
+    <div class="job reveal">
+      <div class="job-head">
+        <span class="job-role">Serialization Specialist / Software Developer</span>
+        <span class="job-date">Aug 2018 — Jul 2022</span>
+      </div>
+      <div class="job-co">Nutra-Med Packaging Inc. · Whippany, NJ</div>
+      <ul>
+        <li>Supported serialization for pharmaceutical packaging — maintained databases, user permissions, and backend systems.</li>
+        <li>Analyzed user needs and requirements to assess design feasibility within time and cost constraints.</li>
+        <li>Directed software testing, validation procedures, programming, and documentation.</li>
+        <li>Stored, retrieved, and manipulated data to analyze system capabilities and requirements.</li>
+        <li>Designed and modified software systems using scientific analysis and mathematical modeling.</li>
+      </ul>
+    </div>
+
+    <div class="job reveal">
+      <div class="job-head">
+        <span class="job-role">Software Developer</span>
+        <span class="job-date">Aug 2015 — Apr 2016</span>
+      </div>
+      <div class="job-co">Cursorsoft Private Ltd · Surat, Gujarat</div>
+      <ul>
+        <li>Designed and modified software systems using scientific analysis and mathematical modeling.</li>
+        <li>Assessed design feasibility against user needs, timelines, and cost constraints.</li>
+        <li>Coordinated with systems analysts, engineers, and programmers on system design and interfaces.</li>
+        <li>Directed testing, validation, programming, and documentation.</li>
+        <li>Coordinated software installation and monitored equipment to ensure specs were met.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="file-head reveal"><span class="ext-dot"></span><h2>skills.json</h2><span class="sub">// stack</span></div>
+    <div class="json-block reveal">
+      <div class="json-row"><span class="json-punc">{</span></div>
+      <div class="json-row">&nbsp;&nbsp;<span class="json-key">"languages"</span><span class="json-punc">:</span>
+        <span class="tag">Python</span><span class="tag">C</span><span class="tag">C++</span><span class="tag">C#</span><span class="tag">Java</span><span class="tag">J2EE</span><span class="tag">JavaScript</span><span class="tag">jQuery</span><span class="tag">Ajax</span><span class="tag">JSON</span>
+      </div>
+      <div class="json-row">&nbsp;&nbsp;<span class="json-key">"databases"</span><span class="json-punc">:</span>
+        <span class="tag">MySQL</span><span class="tag">MSSQL</span><span class="tag">Oracle9i</span>
+      </div>
+      <div class="json-row">&nbsp;&nbsp;<span class="json-key">"servers"</span><span class="json-punc">:</span>
+        <span class="tag">Apache Tomcat</span><span class="tag">IIS</span>
+      </div>
+      <div class="json-row">&nbsp;&nbsp;<span class="json-key">"tooling"</span><span class="json-punc">:</span>
+        <span class="tag">Visual Studio</span><span class="tag">Eclipse</span><span class="tag">Android Studio</span><span class="tag">NetBeans</span><span class="tag">Jira</span>
+      </div>
+      <div class="json-row">&nbsp;&nbsp;<span class="json-key">"platforms"</span><span class="json-punc">:</span>
+        <span class="tag">Windows</span><span class="tag">Linux</span><span class="tag">macOS</span>
+      </div>
+      <div class="json-row">&nbsp;&nbsp;<span class="json-key">"certifications"</span><span class="json-punc">:</span>
+        <span class="tag">SQL (Basic) — HackerRank, 2022</span>
+      </div>
+      <div class="json-row">&nbsp;&nbsp;<span class="json-key">"spoken"</span><span class="json-punc">:</span>
+        <span class="tag">English</span><span class="tag">Hindi</span><span class="tag">Gujarati</span><span class="tag">Spanish (elementary)</span>
+      </div>
+      <div class="json-row"><span class="json-punc">}</span></div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="file-head reveal"><span class="ext-dot"></span><h2>projects.log</h2><span class="sub">// personal</span></div>
+
+    <div class="job job--proj reveal">
+      <div class="job-head">
+        <span class="job-role">Home Lab — Raspberry Pi</span>
+        <span class="job-date">2015 — Ongoing</span>
+      </div>
+      <div class="job-co">Personal project</div>
+      <ul>
+        <li>Self-hosted home lab running on a Raspberry Pi 4 — private cloud storage via Nextcloud, a local AI chatbot through Ollama + Open WebUI, and a live status dashboard on an attached display.</li>
+        <li>Whole stack orchestrated with Docker Compose, moved onto external SSD storage for reliability.</li>
+        <li>Actively expanding to additional Pi nodes for network-wide ad-blocking and a self-hosted VPN.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="file-head reveal"><span class="ext-dot"></span><h2>education.yml</h2><span class="sub">// config</span></div>
+
+    <div class="edu reveal">
+      <div class="edu-title">Master of Engineering — Applied Artificial Intelligence</div>
+      <div class="yml-row"><b>school:</b> <span class="yml-val">Stevens Institute of Technology, Hoboken NJ</span></div>
+      <div class="yml-row"><b>completed:</b> <span class="yml-val">2019 – 2022</span></div>
+    </div>
+
+    <div class="edu reveal">
+      <div class="edu-title">Bachelor of Science — Computer Science &amp; Engineering</div>
+      <div class="yml-row"><b>school:</b> <span class="yml-val">Parul Institute of Technology, Vadodara, Gujarat</span></div>
+      <div class="yml-row"><b>completed:</b> <span class="yml-val">June 2015</span></div>
+      <div class="yml-row"><b>coursework:</b> <span class="yml-val">Java, C, C++, C#, Database Systems, Computer Architecture</span></div>
+      <div class="yml-row"><b>project:</b> <span class="yml-val">Online Vehicle Tracking System (Android, final-year project)</span></div>
+    </div>
+
+    <div class="edu reveal">
+      <div class="edu-title">Diploma — Computer Science</div>
+      <div class="yml-row"><b>school:</b> <span class="yml-val">V.B. Polytechnic, Navsari, Gujarat</span></div>
+      <div class="yml-row"><b>completed:</b> <span class="yml-val">August 2011</span></div>
+      <div class="yml-row"><b>coursework:</b> <span class="yml-val">Programming, Web Design, Database Systems, Software Engineering</span></div>
+      <div class="yml-row"><b>project:</b> <span class="yml-val">University website &amp; automatic bell-ringing system</span></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="file-head reveal"><span class="ext-dot"></span><h2>contact.sh</h2><span class="sub">// executable</span></div>
+    <div class="sh-block reveal">
+      <div class="sh-row"><span class="comment">#!/bin/sh</span></div>
+      <div class="sh-row"><span class="prompt" style="color:var(--teal)">$</span> open <a href="mailto:tanayparekh94@gmail.com">mailto:tanayparekh94@gmail.com</a></div>
+      <div class="sh-row"><span class="prompt" style="color:var(--teal)">$</span> open <a href="https://www.linkedin.com/in/tanay-parekh-8a8b46a6/" target="_blank" rel="noopener noreferrer">linkedin.com/in/tanay-parekh-8a8b46a6</a></div>
+      <div class="sh-row"><span class="prompt" style="color:var(--teal)">$</span> echo <span class="yml-val" style="color:#c7cedd;font-family:var(--mono)">"New Jersey, USA — open to new roles"</span></div>
+      <div class="note">Heads up: I left your phone number and street address off this public page for privacy — easy to add back into contact.sh if you'd rather include them.</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>built by tanay parekh — last commit 2026-08-06</footer>
+
+<script>
+  (function(){
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // typewriter hero
+    var nameEl = document.getElementById('typedName');
+    var roleEl = document.getElementById('typedRole');
+    var nameTxt = "Tanay Parekh";
+    var roleTxt = "Software Developer";
+
+    function type(el, txt, delay, done){
+      if(reduceMotion){ el.textContent = txt; if(done) done(); return; }
+      var i = 0;
+      el.textContent = "";
+      var t = setInterval(function(){
+        el.textContent = txt.slice(0, i+1);
+        i++;
+        if(i >= txt.length){ clearInterval(t); if(done) done(); }
+      }, delay);
+    }
+    type(nameEl, nameTxt, 55, function(){
+      type(roleEl, roleTxt, 40);
+    });
+
+    // scroll reveal
+    var revealEls = document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window && !reduceMotion){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, {threshold:.12, rootMargin:"0px 0px -40px 0px"});
+      revealEls.forEach(function(el){ io.observe(el); });
+    } else {
+      revealEls.forEach(function(el){ el.classList.add('in'); });
+    }
+
+    // scrollspy tabs
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+    var sections = tabs.map(function(t){ return document.getElementById(t.dataset.file); });
+    function onScroll(){
+      var pos = window.scrollY + 120;
+      var activeIdx = 0;
+      sections.forEach(function(s, idx){
+        if(s && s.offsetTop <= pos) activeIdx = idx;
+      });
+      tabs.forEach(function(t, idx){
+        var isActive = idx === activeIdx;
+        t.classList.toggle('active', isActive);
+        if(isActive){ t.setAttribute('aria-current', 'true'); }
+        else{ t.removeAttribute('aria-current'); }
+      });
+    }
+    document.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+
+    // tab bar overflow fade hint
+    var tabbarInner = document.querySelector('.tabbar-inner');
+    var tabbarFade = document.getElementById('tabbarFade');
+    function updateFade(){
+      var overflowing = tabbarInner.scrollWidth > tabbarInner.clientWidth + 1;
+      var atEnd = tabbarInner.scrollLeft + tabbarInner.clientWidth >= tabbarInner.scrollWidth - 1;
+      tabbarFade.classList.toggle('show', overflowing && !atEnd);
+    }
+    tabbarInner.addEventListener('scroll', updateFade, {passive:true});
+    window.addEventListener('resize', updateFade);
+    updateFade();
+  })();
+</script>
+</body>
+</html>
