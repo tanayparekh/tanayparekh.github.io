@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tanay Parekh — Software Developer</title>
-<meta name="description" content="Tanay Parekh — Software Developer. 3+ years building enterprise .NET applications, backend systems, and databases.">
+<meta name="description" content="Tanay Parekh — Software Developer. 6+ years building enterprise .NET applications, backend systems, and databases.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMwYTBlMTciLz4KICA8dGV4dCB4PSIzMiIgeT0iNDMiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJ1aS1tb25vc3BhY2UsIE1lbmxvLCBDb25zb2xhcywgbW9ub3NwYWNlIiBmb250LXNpemU9IjI4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjNGNlOGM0Ij4mZ3Q7XzwvdGV4dD4KPC9zdmc+Cg==">
 <style>
   :root{
@@ -225,6 +225,22 @@
 
   /* projects.log */
   #projects .file-head{--dot:#5cc8ff;}
+  .job-stack{margin-top:13px;}
+  .job-stack .tag{
+    background:rgba(92,200,255,.07);color:var(--sky);
+    border-color:rgba(92,200,255,.26);
+    font-family:var(--mono);font-size:.76rem;
+  }
+  .repo-link{
+    display:inline-flex;align-items:center;gap:7px;
+    margin-top:14px;padding:5px 11px;
+    font-family:var(--mono);font-size:.77rem;
+    color:var(--sky);text-decoration:none;
+    border:1px solid rgba(92,200,255,.28);border-radius:6px;
+    transition:border-color .15s ease, background-color .15s ease;
+  }
+  .repo-link:hover{border-color:var(--sky);background-color:rgba(92,200,255,.08);}
+  .repo-link svg{width:13px;height:13px;fill:currentColor;flex:none;}
 
   /* education.yml */
   #education .file-head{--dot:#9d8cff;}
@@ -291,7 +307,7 @@
         <p class="term-role" id="typedRole"></p>
       </div>
       <div class="term-meta">
-        <span><b>3+ yrs</b> in production software</span>
+        <span><b>6+ yrs</b> in production software</span>
         <span><b>M.Eng.</b> Applied AI — Stevens Institute of Technology</span>
         <span><b>Based in</b> New Jersey, USA</span>
       </div>
@@ -308,7 +324,7 @@
   <section id="about">
     <div class="file-head reveal"><span class="ext-dot"></span><h2>about.md</h2><span class="sub">// summary</span></div>
     <div class="prose reveal">
-      <p>I'm a <span class="kw">software developer</span> with 3+ years of production experience building enterprise applications on the <span class="kw">.NET</span> stack — from backend architecture and database design to the integrations that keep systems talking to each other.</p>
+      <p>I'm a <span class="kw">software developer</span> with 6+ years of production experience building enterprise applications on the <span class="kw">.NET</span> stack — from backend architecture and database design to the integrations that keep systems talking to each other.</p>
       <p>My path here wasn't a straight line: I've shipped ASP.NET applications, kept pharmaceutical serialization systems compliant and running, and even wired up hardware-level programming along the way. I hold an <span class="kw">M.Eng. in Applied Artificial Intelligence</span> from Stevens Institute of Technology (2019–2022), and I like problems that sit at the intersection of code, data, and systems design.</p>
       <p>Currently building software design and architecture at Micrologic Associates, Parsippany NJ. Outside of work I speak English, Hindi, and Gujarati, and I'm slowly picking up Spanish — and I keep a running Raspberry Pi home lab as a side project.</p>
     </div>
@@ -394,7 +410,28 @@
   </section>
 
   <section id="projects">
-    <div class="file-head reveal"><span class="ext-dot"></span><h2>projects.log</h2><span class="sub">// personal</span></div>
+    <div class="file-head reveal"><span class="ext-dot"></span><h2>projects.log</h2><span class="sub">// selected work</span></div>
+
+    <div class="job job--proj reveal">
+      <div class="job-head">
+        <span class="job-role">Warehouse Inventory &amp; Receiving System</span>
+        <span class="job-date">2019 — 2022</span>
+      </div>
+      <div class="job-co">Full-stack WMS · built for pharmaceutical packaging operations</div>
+      <ul>
+        <li>End-to-end warehouse management system covering receiving and inspection reports, put-away, pallet tagging, order pick lists, and warehouse/location tracking.</li>
+        <li>PHP and MySQL backend with a Bootstrap + jQuery/AJAX front end, behind a session-based login with per-employee and per-department permissions gating every module.</li>
+        <li>Generates Code 128 barcodes and printable pallet tags in-app, and renders receiving/inspection reports as PDFs via FPDF with scanned paperwork attached to each receipt.</li>
+        <li>Talks to warehouse hardware over an RS-232 serial layer so barcode scanner input flows straight into the receiving workflow.</li>
+      </ul>
+      <div class="job-stack">
+        <span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">JavaScript</span><span class="tag">jQuery</span><span class="tag">AJAX</span><span class="tag">Bootstrap</span><span class="tag">FPDF</span><span class="tag">Code 128</span><span class="tag">RS-232</span>
+      </div>
+      <a class="repo-link" href="https://github.com/tanayparekh/Warehouse_Inventory_and_Receving_PHP" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        github.com/tanayparekh/Warehouse_Inventory_and_Receving_PHP
+      </a>
+    </div>
 
     <div class="job job--proj reveal">
       <div class="job-head">
@@ -448,7 +485,7 @@
 
 </main>
 
-<footer>built by tanay parekh — last commit 2026-08-06</footer>
+<footer>built by tanay parekh — last commit 2026-08-07</footer>
 
 <script>
   (function(){
