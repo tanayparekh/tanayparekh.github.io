@@ -404,18 +404,36 @@
 
     <div class="job job--proj reveal">
       <div class="job-head">
-        <span class="job-role">Warehouse Inventory &amp; Receiving System</span>
-        <span class="job-date">2019 — 2022</span>
+        <span class="job-role">ParekhWMS — Warehouse Management System</span>
+        <span class="job-date">2019 — Present</span>
       </div>
-      <div class="job-co">Full-stack WMS · built for pharmaceutical packaging operations</div>
+      <div class="job-co">Full-stack WMS · originally PHP/MySQL, rebuilt on ASP.NET Core 9</div>
       <ul>
-        <li>End-to-end warehouse management system covering receiving and inspection reports, put-away, pallet tagging, order pick lists, and warehouse/location tracking.</li>
-        <li>PHP and MySQL backend with a Bootstrap + jQuery/AJAX front end, behind a session-based login with per-employee and per-department permissions gating every module.</li>
-        <li>Generates Code 128 barcodes and printable pallet tags in-app, and renders receiving/inspection reports as PDFs via FPDF with scanned paperwork attached to each receipt.</li>
-        <li>Talks to warehouse hardware over an RS-232 serial layer so barcode scanner input flows straight into the receiving workflow.</li>
+        <li>Warehouse ERP for pharmaceutical packaging operations — receiving and inspection reporting, pallet lifecycle and tag printing, inventory by location, a forklift dispatch queue, and reporting. First shipped as a PHP/MySQL application, then rewritten ground-up on .NET.</li>
+        <li>Migration to ASP.NET Core 9 MVC with EF Core 9 over MySQL: thin controllers over an interface-backed service layer, hand-written entities, and Razor views — architecture layering and every significant call recorded as ADRs.</li>
+        <li>Replaced legacy MD5 password storage with ASP.NET Core Identity (cookie auth, PBKDF2), including a transparent rehash-on-login path so existing accounts keep working through the cutover.</li>
+        <li>Access control is a per-employee and per-department permission matrix driving page-level CRUD policies and the sidebar itself, with claims cached and invalidated on change.</li>
+        <li>161 unit tests across 24 files with xUnit, Moq, and FluentAssertions; containerized with Docker for deployment.</li>
       </ul>
       <div class="job-stack">
-        <span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">JavaScript</span><span class="tag">jQuery</span><span class="tag">AJAX</span><span class="tag">Bootstrap</span><span class="tag">FPDF</span><span class="tag">Code 128</span><span class="tag">RS-232</span>
+        <span class="tag">C#</span><span class="tag">ASP.NET Core 9</span><span class="tag">EF Core 9</span><span class="tag">MySQL</span><span class="tag">Identity</span><span class="tag">Serilog</span><span class="tag">xUnit</span><span class="tag">Moq</span><span class="tag">Docker</span><span class="tag">PHP</span><span class="tag">Bootstrap</span><span class="tag">jQuery</span>
+      </div>
+    </div>
+
+    <div class="job job--proj reveal">
+      <div class="job-head">
+        <span class="job-role">Warehouse Scanner — GS1 EPCIS Aggregation</span>
+        <span class="job-date">2024</span>
+      </div>
+      <div class="job-co">Desktop tool · pharmaceutical serialization</div>
+      <ul>
+        <li>Windows application that drives a Keyence fixed-mount barcode reader over TCP/IP — live camera view embedded in the app, remote trigger on/off, and asynchronous capture of scans straight into the operator's work list.</li>
+        <li>Operators scan child case codes (GS1 SGTIN) and then the parent pallet (SSCC); the app builds the parent–child aggregation and validates it before handing it downstream.</li>
+        <li>Emits a GS1 EPCIS 1.2 AggregationEvent document — converting raw SSCC and SGTIN barcodes into EPC URNs and stamping business step, disposition, read point, and business location.</li>
+        <li>Delivers the generated EPCIS file to the trading partner over SFTP, with server credentials, camera IP, and output paths all configurable in-app.</li>
+      </ul>
+      <div class="job-stack">
+        <span class="tag">C#</span><span class="tag">.NET Framework 4.8</span><span class="tag">WinForms</span><span class="tag">Keyence AutoID SDK</span><span class="tag">GS1 EPCIS</span><span class="tag">SFTP</span><span class="tag">XML</span>
       </div>
     </div>
 
