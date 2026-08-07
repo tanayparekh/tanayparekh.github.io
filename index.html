@@ -207,6 +207,13 @@
   .job li::marker{color:var(--muted-dim);}
   .job--proj::before{border-color:var(--sky);}
   .job--proj .job-date{color:var(--sky);background:rgba(92,200,255,.1);border-color:rgba(92,200,255,.28);}
+  .job li b{color:var(--ink);font-weight:600;}
+  .job li code{
+    font-family:var(--mono);font-size:.85em;
+    color:var(--sky);background:rgba(92,200,255,.09);
+    border-radius:4px;padding:1px 5px;
+    overflow-wrap:anywhere;
+  }
 
   /* skills.json */
   #skills .file-head{--dot:#ffc65c;}
@@ -427,13 +434,15 @@
       </div>
       <div class="job-co">Desktop tool · pharmaceutical serialization</div>
       <ul>
-        <li>Windows application that drives a Keyence fixed-mount barcode reader over TCP/IP — live camera view embedded in the app, remote trigger on/off, and asynchronous capture of scans straight into the operator's work list.</li>
-        <li>Operators scan child case codes (GS1 SGTIN) and then the parent pallet (SSCC); the app builds the parent–child aggregation and validates it before handing it downstream.</li>
-        <li>Emits a GS1 EPCIS 1.2 AggregationEvent document — converting raw SSCC and SGTIN barcodes into EPC URNs and stamping business step, disposition, read point, and business location.</li>
-        <li>Delivers the generated EPCIS file to the trading partner over SFTP, with server credentials, camera IP, and output paths all configurable in-app.</li>
+        <li><b>Reader link.</b> Opens a TCP/IP connection to a Keyence fixed-mount reader on the plant network and registers an asynchronous callback, so decoded scans arrive on a background thread and get marshalled onto the UI thread as they land. Read cycles are started and stopped remotely through the SDK's <code>LON</code>/<code>LOFF</code> trigger commands, with the reader's live camera feed embedded directly in the form.</li>
+        <li><b>Scan normalization.</b> Raw reads are cleaned before they reach the work list — GS1 group separators and carriage returns stripped, multi-code payloads split on the delimiter, and anything shorter than a valid 18-character barcode rejected. Duplicate child codes are refused at add time.</li>
+        <li><b>Aggregation flow.</b> Operators build a pallet by scanning child case codes (GS1 SGTIN), review them in an indexed grid with per-row removal and a live count, then scan the parent pallet code (SSCC) to close the aggregation out.</li>
+        <li><b>Barcode → EPC.</b> Both formats are parsed into EPC URNs by hand: the SSCC split into extension digit, seven-digit company prefix and serial reference; the SGTIN into GTIN, packing level, item reference and twelve-digit serial.</li>
+        <li><b>EPCIS generation.</b> Builds the GS1 EPCIS 1.2 document node by node against the <code>urn:epcglobal:epcis:xsd:1</code> namespace — EPCISDocument → EPCISBody → EventList → AggregationEvent — carrying UTC event time and zone offset, an <code>ADD</code> action, a <code>packing</code> business step, <code>in_progress</code> disposition, and SGLN read point and business location. Files land timestamped as <code>yyyyMMddHHmmss.xml</code>.</li>
+        <li><b>Delivery.</b> Ships the finished document to the trading partner over SFTP, creating the remote directory if it doesn't already exist. Host, port, credentials, camera IP, and local/remote paths live in an app-managed XML config that self-creates with sane defaults on first run, and SFTP toggles off for local-only operation.</li>
       </ul>
       <div class="job-stack">
-        <span class="tag">C#</span><span class="tag">.NET Framework 4.8</span><span class="tag">WinForms</span><span class="tag">Keyence AutoID SDK</span><span class="tag">GS1 EPCIS</span><span class="tag">SFTP</span><span class="tag">XML</span>
+        <span class="tag">C#</span><span class="tag">.NET Framework 4.8</span><span class="tag">WinForms</span><span class="tag">Keyence AutoID SDK</span><span class="tag">TCP/IP</span><span class="tag">GS1 EPCIS 1.2</span><span class="tag">SGTIN / SSCC</span><span class="tag">System.Xml</span><span class="tag">SSH.NET</span><span class="tag">SFTP</span>
       </div>
     </div>
 
